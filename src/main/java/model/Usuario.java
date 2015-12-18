@@ -24,10 +24,6 @@ public class Usuario implements Serializable {
 	private String password;
 	private String region;
 	private String usuario;
-	private Set<Comentario> comentarios;
-	private Set<Favorito> favoritos;
-	private Set<Voto> votos;
-	private Set<Transaccion> transaccions;
 
 	public Usuario() {
 	}
@@ -134,104 +130,5 @@ public class Usuario implements Serializable {
 		this.usuario = usuario;
 	}
 
-
-	//bi-directional many-to-one association to Comentario
-	@OneToMany(mappedBy="usuario")
-	public Set<Comentario> getComentarios() {
-		return this.comentarios;
-	}
-
-	public void setComentarios(Set<Comentario> comentarios) {
-		this.comentarios = comentarios;
-	}
-
-	public Comentario addComentario(Comentario comentario) {
-		getComentarios().add(comentario);
-		comentario.setUsuario(this);
-
-		return comentario;
-	}
-
-	public Comentario removeComentario(Comentario comentario) {
-		getComentarios().remove(comentario);
-		comentario.setUsuario(null);
-
-		return comentario;
-	}
-
-
-	//bi-directional many-to-one association to Favorito
-	@OneToMany(mappedBy="usuario")
-	public Set<Favorito> getFavoritos() {
-		return this.favoritos;
-	}
-
-	public void setFavoritos(Set<Favorito> favoritos) {
-		this.favoritos = favoritos;
-	}
-
-	public Favorito addFavorito(Favorito favorito) {
-		getFavoritos().add(favorito);
-		favorito.setUsuario(this);
-
-		return favorito;
-	}
-
-	public Favorito removeFavorito(Favorito favorito) {
-		getFavoritos().remove(favorito);
-		favorito.setUsuario(null);
-
-		return favorito;
-	}
-
-
-	//bi-directional many-to-one association to Voto
-	@OneToMany(mappedBy="usuario")
-	public Set<Voto> getVotos() {
-		return this.votos;
-	}
-
-	public void setVotos(Set<Voto> votos) {
-		this.votos = votos;
-	}
-
-	public Voto addVoto(Voto voto) {
-		getVotos().add(voto);
-		voto.setUsuario(this);
-
-		return voto;
-	}
-
-	public Voto removeVoto(Voto voto) {
-		getVotos().remove(voto);
-		voto.setUsuario(null);
-
-		return voto;
-	}
-
-
-	//bi-directional many-to-one association to Transaccion
-	@OneToMany(mappedBy="usuario")
-	public Set<Transaccion> getTransaccions() {
-		return this.transaccions;
-	}
-
-	public void setTransaccions(Set<Transaccion> transaccions) {
-		this.transaccions = transaccions;
-	}
-
-	public Transaccion addTransaccion(Transaccion transaccion) {
-		getTransaccions().add(transaccion);
-		transaccion.setUsuario(this);
-
-		return transaccion;
-	}
-
-	public Transaccion removeTransaccion(Transaccion transaccion) {
-		getTransaccions().remove(transaccion);
-		transaccion.setUsuario(null);
-
-		return transaccion;
-	}
 
 }

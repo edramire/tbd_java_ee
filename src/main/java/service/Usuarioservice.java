@@ -37,12 +37,19 @@ public class Usuarioservice {
     }
 
 	@PUT
-	@Path("/adduser/{usuario}")
+	@Path("/edit/{usuario}")
     @Consumes({"application/xml", "application/json"})
 	public void create(@PathParam("usuario") String usuario, Usuario entity){
 		entity.setUsuario(usuario);
 		usuarioFacadeEJB.create(entity);
 	}
+
+	@POST
+	@Path("crear")
+    @Consumes({"application/xml", "application/json"})
+    public void create(Usuario entity) {
+        usuarioFacadeEJB.create(entity);
+    }
 	/*@GET
     @Path("{mail}")
     @Produces({"application/xml", "application/json"})
