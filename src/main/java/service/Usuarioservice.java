@@ -36,14 +36,8 @@ public class Usuarioservice {
         return usuarioFacadeEJB.find(id);
     }
 
-	@GET
-    @Path("{usuario}")
-    @Produces({"application/xml", "application/json"})
-    public Usuario find_user(@PathParam("usuario") String usuario) {
-        return usuarioFacadeEJB.find(usuario);
-    }
 	@PUT
-	@Path("{/adduser/{usuario}")
+	@Path("/adduser/{usuario}")
     @Consumes({"application/xml", "application/json"})
 	public void create(@PathParam("usuario") String usuario, Usuario entity){
 		entity.setUsuario(usuario);
