@@ -24,7 +24,7 @@ import facade.Core_2Facade;
 import model.Core_2;
 import model.Usuario;
 
-@Path("/Core")
+@Path("/Core_2")
 public class Core_2service {
 	
 	@EJB 
