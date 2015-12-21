@@ -1,7 +1,13 @@
 package model;
 
 import java.io.Serializable;
+
+import javax.faces.context.FacesContext;
 import javax.persistence.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
+
 import java.util.Set;
 
 

@@ -18,6 +18,9 @@ public interface UsuarioFacade {
 	public Usuario find(Object id);
 	
 	public Usuario find_user(Object usuario);
+	
+	public String login(String username, String password);
+	
 
 	public List<Usuario> findAll();
 

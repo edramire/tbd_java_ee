@@ -1,9 +1,17 @@
 package service;
 
 import java.util.List;
+
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import helper.ResponseHelper;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,7 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-
+import auth.Credentials;
 import facade.UsuarioFacade;
 import model.Usuario;
 
@@ -50,6 +58,27 @@ public class Usuarioservice {
     public void create(Usuario entity) {
         usuarioFacadeEJB.create(entity);
     }
+	@POST
+    @Path("login")
+    @Produces({"application/xml", "application/json"})
+	public Response login(@Context HttpHeaders httpHeaders,Credentials input) {
+		String user=input.username;
+		String password=input.password;
+		if (usuarioFacadeEJB.login(user,password).equals("malo")){
+			JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
+        	jsonObjBuilder.add( "message", "Error de usuario o password" );
+        	JsonObject jsonObj = jsonObjBuilder.build();
+
+        	return ResponseHelper.getNoCacheResponseBuilder( Response.Status.UNAUTHORIZED ).entity( jsonObj.toString() ).build();
+		}
+		else{
+			JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
+            JsonObject jsonObj = jsonObjBuilder.build();
+        	jsonObjBuilder.add( "message", "Login exitoso");
+            return ResponseHelper.getNoCacheResponseBuilder( Response.Status.OK ).entity( jsonObj.toString() ).build();
+		}
+    }
+	
 	/*@GET
     @Path("{mail}")
     @Produces({"application/xml", "application/json"})
