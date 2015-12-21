@@ -16,11 +16,18 @@ public class Voto implements Serializable {
 	private int idVoto;
 	private int calificacion;
 	private int servicio_idServicio;
-	private Usuario usuario;
+	private int idusuario;
 
 	public Voto() {
 	}
+	@Column(name="Usuario_idUsuario", nullable=false)
+	public int getUsuario_idUsuario() {
+		return this.idusuario;
+	}
 
+	public void setUsuario_idUsuario(int a) {
+		this.idusuario = a;
+	}		
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -54,15 +61,5 @@ public class Voto implements Serializable {
 	}
 
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="Usuario_idUsuario", nullable=false)
-	public Usuario getUsuario() {
-		return this.usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 }

@@ -9,6 +9,8 @@ import model.*;
 public interface SolicitudFacade {
 
 	public void create(Core_2 entity);
+	
+	public void create2(Core_2 entity);
 
 	public void edit(Core_2 entity);
 

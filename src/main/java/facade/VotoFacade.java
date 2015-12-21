@@ -15,6 +15,8 @@ public interface VotoFacade {
 	public void remove(Voto entity);
 
 	public Voto find(Object id);
+	
+	public String calif(Integer iduser, Integer idservicio,Integer nota);
 
 	public List<Voto> findAll();
 
