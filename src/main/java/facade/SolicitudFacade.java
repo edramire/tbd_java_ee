@@ -6,7 +6,7 @@ import javax.ejb.Local;
 
 import model.*;
 @Local
-public interface Core_2Facade {
+public interface SolicitudFacade {
 
 	public void create(Core_2 entity);
 

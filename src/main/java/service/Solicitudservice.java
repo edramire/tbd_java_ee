@@ -20,42 +20,41 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import auth.Credentials;
-import facade.CoreFacade;
-import model.Core;
-import model.Usuario;
+import facade.SolicitudFacade;
+import model.Core_2;
 
-@Path("/Core")
-public class Coreservice {
+@Path("/Solicitud")
+public class Solicitudservice {
 	
 	@EJB 
-	CoreFacade coreFacadeEJB;
+	SolicitudFacade solicitudFacadeEJB;
 	
-	Logger logger = Logger.getLogger(Coreservice.class.getName());
+	Logger logger = Logger.getLogger(Solicitudservice.class.getName());
 	
 	@GET
 	@Produces({"application/xml", "application/json"})
-	public List<Core> findAll(){
-		return coreFacadeEJB.findAll();
+	public List<Core_2> findAll(){
+		return solicitudFacadeEJB.findAll();
 	}
 	
 	@GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
-    public Core find_id(@PathParam("id") Integer id) {
-        return coreFacadeEJB.find(id);
+    public Core_2 find_id(@PathParam("id") Integer id) {
+        return solicitudFacadeEJB.find(id);
     }
 
 	@POST
 	@Path("crear")
     @Consumes({"application/xml", "application/json"})
-    public void create(Core entity) {
-        coreFacadeEJB.create(entity);
+    public void create(Core_2 entity) {
+        solicitudFacadeEJB.create(entity);
     }
 	@PUT
 	@Path("/edit_core/{id}")
     @Consumes({"application/xml", "application/json"})
-	public void edit(@PathParam("id") Integer id, Core entity){
+	public void edit(@PathParam("id") Integer id, Core_2 entity){
 		entity.setIdServicio(id);
-		coreFacadeEJB.edit(entity);
+		solicitudFacadeEJB.edit(entity);
 	}
 }
