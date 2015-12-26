@@ -24,6 +24,7 @@ public class Core implements Serializable {
 	private String precio;
 	private String titulo;
 	private int usuario_idUsuario;
+	private int promedio;
 
 	public Core() {
 	}
@@ -130,6 +131,16 @@ public class Core implements Serializable {
 
 	public void setUsuario_idUsuario(int usuario_idUsuario) {
 		this.usuario_idUsuario = usuario_idUsuario;
+	}
+
+
+	public int getPromedio() {
+		return promedio;
+	}
+
+
+	public void setPromedio(int promedio) {
+		this.promedio = promedio;
 	}
 
 }
