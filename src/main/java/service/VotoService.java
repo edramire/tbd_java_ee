@@ -54,8 +54,8 @@ public class VotoService {
 		Integer idservicio=input.ids;
 		Integer nota=input.nota;
 		votado.setCalificacion(nota);
-		votado.setServicio_idServicio(iduser);
-		votado.setUsuario_idUsuario(idservicio);
+		votado.setCore_idCore(idservicio);
+		votado.setUsuario_idUsuario(iduser);
 		votoFacadeEJB.create(votado);		
     }
 

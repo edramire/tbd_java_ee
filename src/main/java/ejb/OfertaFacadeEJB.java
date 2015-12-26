@@ -8,13 +8,13 @@ import facade.*;
 import model.*;
 
 @Stateless
-public class CoreFacadeEJB extends AbstractFacade<Core> implements CoreFacade {
+public class OfertaFacadeEJB extends AbstractFacade<Core> implements OfertaFacade {
 	
 	
 	@PersistenceContext(unitName = "ServiFast")
 	private EntityManager em;
 	
-	public CoreFacadeEJB() {
+	public OfertaFacadeEJB() {
 		super(Core.class);
 	}
 

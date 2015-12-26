@@ -15,7 +15,7 @@ public class Voto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idVoto;
 	private int calificacion;
-	private int servicio_idServicio;
+	private int core_idCore;
 	private int idusuario;
 
 	public Voto() {
@@ -51,13 +51,12 @@ public class Voto implements Serializable {
 	}
 
 
-	@Column(name="Servicio_idServicio", nullable=false)
-	public int getServicio_idServicio() {
-		return this.servicio_idServicio;
+	@Column(name="Core_idCore", nullable=false)
+	public int getCore_idCore() {
+		return this.core_idCore;
 	}
-
-	public void setServicio_idServicio(int servicio_idServicio) {
-		this.servicio_idServicio = servicio_idServicio;
+	public void setCore_idCore(int core_idCore) {
+		this.core_idCore = core_idCore;
 	}
 
 

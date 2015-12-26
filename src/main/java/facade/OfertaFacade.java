@@ -10,7 +10,7 @@ import java.util.List;
 
 import model.Usuario;
 
-public interface CoreFacade {
+public interface OfertaFacade {
 
 	void create(Core entity);
 

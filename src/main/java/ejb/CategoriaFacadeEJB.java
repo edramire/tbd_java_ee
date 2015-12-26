@@ -8,19 +8,20 @@ import facade.*;
 import model.*;
 
 @Stateless
-public class CategoriaFacadeEJB extends AbstractFacade<Core> implements CoreFacade {
+public class CategoriaFacadeEJB extends AbstractFacade<Categoria> implements CategoriaFacade {
 	
 	
 	@PersistenceContext(unitName = "ServiFast")
 	private EntityManager em;
 	
 	public CategoriaFacadeEJB() {
-		super(Core.class);
+		super(Categoria.class);
 	}
 
 	@Override
 	protected EntityManager getEntityManager() {
 		return this.em;
 	}
+
 
 }
