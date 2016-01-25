@@ -1,6 +1,7 @@
 package ejb;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -55,6 +56,15 @@ public class SolicitudFacadeEJB extends AbstractFacade<Core_2> implements Solici
 				    .getSingleResult();	
             
 		}catch (Exception e){}
+	}
+	public List<Core_2> find_user(Integer id){
+		List<Core_2> test = null;
+		try{ 
+			test= (List<Core_2>) em.createQuery("SELECT u FROM "+ entityClass.getName() + " u WHERE u.usuario_idUsuario = :ID").setParameter("ID", id).getResultList();
+			return test;
+            
+		}catch (Exception e){ return test;}
+		
 	}
 
 }

@@ -22,6 +22,8 @@ import javax.ws.rs.Produces;
 import auth.Credentials3;
 import facade.OfertaFacade;
 import model.Core;
+import model.Favorito;
+import model.Usuario;
 
 @Path("/Oferta")
 public class OfertaService {
@@ -33,8 +35,8 @@ public class OfertaService {
 	
 	@GET
 	@Produces({"application/xml", "application/json"})
-	public List<Core> findAll(){
-		return ofertaFacadeEJB.findAll();
+	public List<Core> findAllplus(){
+		return ofertaFacadeEJB.findAllplus();
 	}
 	
 	@GET
@@ -44,27 +46,11 @@ public class OfertaService {
         return ofertaFacadeEJB.find(id);
     }
 
+
 	@POST
 	@Path("crear")
     @Consumes({"application/xml", "application/json"})
-    public void create2(@Context HttpHeaders httpHeaders,Credentials3 input) {
-		Core entity=new Core();
-		Integer idu=input.idu;
-		Integer idcom=input.idcom;
-		Integer idcat=input.idcat;
-		String descripcion=input.descripcion;
-		entity.setDescripcion(descripcion);
-		String precio= input.precio;
-		entity.setPrecio(precio);
-		String duracion = input.duracion;
-		entity.setDuracion(duracion);
-		String titulo = input.titulo;
-		entity.setTitulo(titulo);
-		Date fecha = input.fecha;
-		entity.setFecha(fecha);
-		entity.setUsuario_idUsuario(idu);
-		entity.setComunidad_idComunidad(idcom);
-		entity.setCategoria_idCategoria(idcat);
+    public void create(Core entity) {
         ofertaFacadeEJB.create(entity);
     }
 	@PUT
@@ -74,4 +60,11 @@ public class OfertaService {
 		entity.setIdServicio(id);
 		ofertaFacadeEJB.edit(entity);
 	}
+
+	@GET
+    @Path("users/{id}")
+    @Produces({"application/xml", "application/json"})
+    public List<Core> find_user(@PathParam("id") Integer id) {
+        return ofertaFacadeEJB.find_user(id);
+    }
 }

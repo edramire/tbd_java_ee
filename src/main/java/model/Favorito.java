@@ -14,8 +14,8 @@ import javax.persistence.*;
 public class Favorito implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int idFavorito;
-	private int servicio_idServicio;
-	private Usuario usuario;
+	private int Servicio_idServicio;
+	private int Usuario_idUsuario;
 
 	public Favorito() {
 	}
@@ -35,23 +35,24 @@ public class Favorito implements Serializable {
 
 	@Column(name="Servicio_idServicio", nullable=false)
 	public int getServicio_idServicio() {
-		return this.servicio_idServicio;
+		return this.Servicio_idServicio;
 	}
 
 	public void setServicio_idServicio(int servicio_idServicio) {
-		this.servicio_idServicio = servicio_idServicio;
+		this.Servicio_idServicio = servicio_idServicio;
 	}
 
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="Usuario_idUsuario", nullable=false)
-	public Usuario getUsuario() {
-		return this.usuario;
+	@Column(name="Usuario_idUsuario", nullable=false)
+	public int getUsuario_idUsuario() {
+		return Usuario_idUsuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+
+	public void setUsuario_idUsuario(int usuario_idUsuario) {
+		this.Usuario_idUsuario = usuario_idUsuario;
 	}
+
+
 
 }

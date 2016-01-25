@@ -28,16 +28,53 @@ public class UsuarioFacadeEJB extends AbstractFacade<Usuario> implements Usuario
 		return this.em;
 	}
 	public String login(String username, String password){
-		try{          
-			em.createQuery(
-					"SELECT c FROM "+ entityClass.getName()+ " c WHERE c.usuario = :Name and c.password = :pass")
-				    .setParameter("Name", username)
-				    .setParameter("pass", password)
-				    .getSingleResult();				
-            return "bien";
+
+		try{ 
+			Usuario test= (Usuario) em.createQuery("SELECT u FROM "+ entityClass.getName() + " u WHERE u.usuario = :Name").setParameter("Name", username).getSingleResult();
+			String pass=test.getPassword();
+			if (pass.equals(password)){
+			
+            String authToken = UUID.randomUUID().toString();
+            Usuario.authorizationTokensStorage.put( authToken, username );
             
-		}catch (Exception e){}
-		return "malo";
+            return authToken;
+			}
+			else{
+				return pass+"   "+password;
+			}
+            
+		}catch (Exception e){ return "mal";}
+		
+	}
+	public String logout(String username){
+		try{ 
+			Query j = em.createQuery(
+					"UPDATE Usuario c SET c.conectado = 0 WHERE c.usuario = :Name")
+				    .setParameter("Name", username);
+			int i=j.executeUpdate();
+            return "bien";
+            		
+            
+		}catch (Exception e){ return "mal";}
+		
+	}
+
+	@Override
+	public String find_nombre(String nombre) {
+		try{
+		Usuario test= (Usuario) em.createQuery("SELECT u FROM "+ entityClass.getName() + " u WHERE u.usuario = :Name").setParameter("Name", nombre).getSingleResult();
+		Integer result1=test.getIdUsuario();
+		String result=result1.toString();
+		return result;
+		}catch (Exception e){return nombre;}
+	}
+	@Override
+	public Usuario find_estado(String nombre) {
+		Usuario test = null;
+		try{
+		test= (Usuario) em.createQuery("SELECT u FROM "+ entityClass.getName() + " u WHERE u.usuario = :Name").setParameter("Name", nombre).getSingleResult();
+		return test;
+		}catch (Exception e){return test;}
 	}
 
 }

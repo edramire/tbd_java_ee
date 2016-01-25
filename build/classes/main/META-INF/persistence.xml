@@ -14,5 +14,6 @@
 		<class>model.Voto</class>
 		<class>model.Core</class>
 		<class>model.Core_2</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
 	</persistence-unit>
 </persistence>

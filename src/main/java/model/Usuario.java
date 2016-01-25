@@ -2,6 +2,10 @@ package model;
 
 import java.io.Serializable;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import javax.faces.context.FacesContext;
 import javax.persistence.*;
 import javax.servlet.ServletException;
@@ -19,6 +23,7 @@ import java.util.Set;
 @Table(name="Usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
+    public final static Map<String, String> authorizationTokensStorage = new HashMap();
 	private static final long serialVersionUID = 1L;
 	private int idUsuario;
 	private String apellido;
@@ -30,6 +35,7 @@ public class Usuario implements Serializable {
 	private String password;
 	private String region;
 	private String usuario;
+	private String conectado;
 
 	public Usuario() {
 	}
@@ -134,6 +140,16 @@ public class Usuario implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+
+	public String getConectado() {
+		return conectado;
+	}
+
+
+	public void setConectado(String conectado) {
+		this.conectado = conectado;
 	}
 
 

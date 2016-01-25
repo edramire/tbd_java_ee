@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import auth.DemoHTTPHeaderNames;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -21,6 +22,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import auth.Credentials;
 import facade.UsuarioFacade;
+import model.Core_2;
 import model.Usuario;
 
 @Path("/Usuario")
@@ -37,12 +39,27 @@ public class Usuarioservice {
 		return usuarioFacadeEJB.findAll();
 	}
 	
+
+	@GET
+    @Path("estado/{nombre}")
+    @Produces({"application/xml", "application/json"})
+    public Usuario getestado(@PathParam("nombre") String nombre) {
+       return usuarioFacadeEJB.find_estado(nombre);
+    }
+	@GET
+    @Path("nombre/{nombre}")
+    @Produces({"application/xml", "application/json"})
+    public String getid(@PathParam("nombre") String nombre) {
+        try{return usuarioFacadeEJB.find_nombre(nombre);}
+        catch(Exception e){return e.toString()+"aca va el nombre:"+nombre;}
+    }
 	@GET
     @Path("{id}")
     @Produces({"application/xml", "application/json"})
     public Usuario find_id(@PathParam("id") Integer id) {
         return usuarioFacadeEJB.find(id);
     }
+	
 
 	@PUT
 	@Path("/edit_user/{id}")
@@ -59,44 +76,68 @@ public class Usuarioservice {
         usuarioFacadeEJB.create(entity);
     }
 	@POST
+    @Path("registro")
+    @Produces("application/json")
+    @Consumes({"application/xml", "application/json"})
+    public Response registro(
+    		 Usuario entity
+    		 ){
+      		
+      		try{
+      			usuarioFacadeEJB.create(entity);
+      			
+      			JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
+                jsonObjBuilder.add( "message", "Registro exitoso." );
+                JsonObject jsonObj = jsonObjBuilder.build();     
+                return ResponseHelper.getNoCacheResponseBuilder( Response.Status.CREATED ).entity( jsonObj.toString() ).build();
+      		}
+      		catch(final Exception ex){
+      			
+      			JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
+                jsonObjBuilder.add( "message", "Error en el registro" );
+                JsonObject jsonObj = jsonObjBuilder.build();
+     
+                return ResponseHelper.getNoCacheResponseBuilder( Response.Status.UNAUTHORIZED /* cambiar codigo */ ).entity( jsonObj.toString() ).build();
+      		}
+    }	
+		
+	@POST
     @Path("login")
     @Produces({"application/xml", "application/json"})
 	public Response login(@Context HttpHeaders httpHeaders,Credentials input) {
 		String user=input.username;
 		String password=input.password;
-		if (usuarioFacadeEJB.login(user,password).equals("malo")){
+        String authTokenTest = httpHeaders.getHeaderString( DemoHTTPHeaderNames.AUTH_TOKEN );
+		if (usuarioFacadeEJB.login(user,password).equals("mal")){
 			JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
-        	jsonObjBuilder.add( "message", "Error de usuario o password" );
+        	jsonObjBuilder.add( "message", usuarioFacadeEJB.login(user,password) );
         	JsonObject jsonObj = jsonObjBuilder.build();
 
         	return ResponseHelper.getNoCacheResponseBuilder( Response.Status.UNAUTHORIZED ).entity( jsonObj.toString() ).build();
-		}
+
+	}
 		else{
+			
+			String authToken = usuarioFacadeEJB.login( user, password );
 			JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
             JsonObject jsonObj = jsonObjBuilder.build();
-        	jsonObjBuilder.add( "message", "Login exitoso");
-            return ResponseHelper.getNoCacheResponseBuilder( Response.Status.OK ).entity( jsonObj.toString() ).build();
+        	jsonObjBuilder.add( "message", usuarioFacadeEJB.login(user,password) );
+        	jsonObjBuilder.add( "auth_token", authToken);
+            return ResponseHelper.getNoCacheResponseBuilder( Response.Status.OK ).entity( jsonObj.toString() ).build();	
+
 		}
+    }	
+	@POST
+    @Path("logout")
+    @Produces({"application/xml", "application/json"})
+	public Response logout(@Context HttpHeaders httpHeaders,Credentials input) {
+		String user=input.username;	
+		usuarioFacadeEJB.logout(user);
+		JsonObjectBuilder jsonObjBuilder = Json.createObjectBuilder();
+        JsonObject jsonObj = jsonObjBuilder.build();
+        return ResponseHelper.getNoCacheResponseBuilder( Response.Status.OK ).entity( jsonObj.toString() ).build();	
+
+		
     }
-	
-	/*@GET
-    @Path("{mail}")
-    @Produces({"application/xml", "application/json"})
-    public Usuario find_mail(@PathParam("mail") String mail) {
-        return usuarioFacadeEJB.find(mail);
-    }	
-	@GET
-    @Path("{nombre}")
-    @Produces({"application/xml", "application/json"})
-    public Usuario find_nombre(@PathParam("nombre") String nombre) {
-        return usuarioFacadeEJB.find(nombre);
-    }	
-	@GET
-    @Path("{apellido}")
-    @Produces({"application/xml", "application/json"})
-    public Usuario find_apellido(@PathParam("apellido") String apellido) {
-        return usuarioFacadeEJB.find(apellido);
-    }*/
-	
 
 }

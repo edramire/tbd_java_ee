@@ -21,6 +21,11 @@ public interface FavoritoFacade {
 	public List<Favorito> findRange(int[] range);
 
 	public int count();
+	
+	public List<Favorito>  find_user(Integer id);
 
+	public List<Core> find_oferta(Integer id);
+	
+	
 
 }

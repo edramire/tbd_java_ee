@@ -48,15 +48,8 @@ public class VotoService {
 	@POST
 	@Path("crear")
     @Consumes({"application/xml", "application/json"})
-    public void create(Credentials2 input) {
-		Voto votado=new Voto();
-		Integer iduser=input.idu;
-		Integer idservicio=input.ids;
-		Integer nota=input.nota;
-		votado.setCalificacion(nota);
-		votado.setCore_idCore(idservicio);
-		votado.setUsuario_idUsuario(iduser);
-		votoFacadeEJB.create(votado);		
+    public void create(Voto entity) {
+		votoFacadeEJB.create(entity);		
     }
 
 

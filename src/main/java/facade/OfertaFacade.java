@@ -8,8 +8,6 @@ import model.*;
 
 import java.util.List;
 
-import model.Usuario;
-
 public interface OfertaFacade {
 
 	void create(Core entity);
@@ -25,5 +23,8 @@ public interface OfertaFacade {
 	List<Core> findRange(int[] range);
 
 	int count();
+	
+	public List<Core> find_user(Integer id);
 
+	List<Core> findAllplus();
 }

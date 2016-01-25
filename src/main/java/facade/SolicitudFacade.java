@@ -23,7 +23,8 @@ public interface SolicitudFacade {
 	public List<Core_2> findRange(int[] range);
 
 	public int count();
-
+	
+	public List<Core_2> find_user(Integer id);
 
 
 }

@@ -28,4 +28,10 @@ public interface UsuarioFacade {
 
 	public int count();
 
+	public String logout(String user);
+
+	public String find_nombre(String nombre);
+
+	public Usuario find_estado(String nombre);
+
 }
